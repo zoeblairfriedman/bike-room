@@ -1,37 +1,55 @@
 class UsersController < ApplicationController
 
-  # GET: /users
   get "/users" do
-    erb :"/users/index.html"
+    @users = User.all
+    erb :"/users/index"
   end
 
-  # GET: /users/new
-  get "/users/new" do
-    erb :"/users/new.html"
+  get '/signup' do
+    if session[:user_id]
+      redirect "/users/#{session[:user_id]}"
+    end
+    erb :'users/signup'
   end
 
-  # POST: /users
-  post "/users" do
-    redirect "/users"
+  post '/signup' do
+    user = User.create(params[:user])
+    session[:user_id] = user.id
+    redirect "/users/#{u.id}"
   end
 
-  # GET: /users/5
+  get '/logout' do
+    session.clear
+    redirect '/login'
+  end
+
+  get '/login' do
+    if session[:user_id]
+      redirect "/users/#{session[:user_id]}"
+    end
+    erb :'users/login'
+  end
+
+  post '/login' do
+    user = User.find_by(name: params[:user][:name])
+    if user && user.authenticate(params[:user][:password])
+      session[:user_id] = user.id
+      redirect "/users/#{user.id}"
+    else
+      # flash[:message] = "Please try again."
+      erb :'users/login'
+    end
+  end
+
+#WONT WORK?   <% if flash.has?(:message) %>
+#   <%= flash[:message] %>
+# <% end %> 
+
   get "/users/:id" do
-    erb :"/users/show.html"
+    @user = User.find_by(id: params[:id])
+    erb :"/users/show"
   end
 
-  # GET: /users/5/edit
-  get "/users/:id/edit" do
-    erb :"/users/edit.html"
-  end
 
-  # PATCH: /users/5
-  patch "/users/:id" do
-    redirect "/users/:id"
-  end
 
-  # DELETE: /users/5/delete
-  delete "/users/:id/delete" do
-    redirect "/users"
-  end
 end

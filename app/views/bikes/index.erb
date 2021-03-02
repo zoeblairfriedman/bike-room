@@ -1,0 +1,7 @@
+<h1>All registered bikes.</h1>
+
+<ul>
+<% @bikes.each do |bike| %>
+    <li><%= bike.model%> - <%= bike.description%></li>
+    <% end %>
+</ul>
