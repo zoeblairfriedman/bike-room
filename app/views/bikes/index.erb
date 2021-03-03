@@ -2,6 +2,6 @@
 
 <ul>
 <% @bikes.each do |bike| %>
-    <li><a href="/bikes/<%=bike.user.id%>"><%= bike.model%> - <%= bike.description%></a></li>
+    <li><a href="/bikes/<%=bike.id%>"><%= bike.model%> - <%= bike.description%></a></li>
     <% end %>
 </ul>

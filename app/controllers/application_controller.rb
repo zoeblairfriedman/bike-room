@@ -6,7 +6,7 @@ use Rack::Flash
 
 configure do
     set(:views, 'app/views')
-    set :public_folder, './public/'
+    set :public_folder, 'public'
     enable :sessions
     set :session_secret, 'secret'
   end
@@ -18,6 +18,30 @@ configure do
     else
       erb :welcome, :layout => :login_layout
     end
+  end
+
+  helpers do
+
+      def current_user
+        User.find_by(id: session[:user_id])
+      end
+
+      def redirect_if_not_logged_in
+          redirect '/' unless current_user
+      end
+
+      def is_admin?
+        current_user.name == "admin"
+      end
+
+      def check_owner(obj)
+        obj && obj.user == current_user
+      end
+
+      def redirect_to_user_home
+        redirect "/users/#{current_user.id}"
+      end
+
   end
 
 

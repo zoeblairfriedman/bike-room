@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   get "/users" do
+    redirect_if_not_logged_in
     @users = User.all
     erb :"/users/index"
   end
@@ -47,14 +48,16 @@ class UsersController < ApplicationController
   end
 
   get "/users/:id" do
-    @user = User.find_by(id: params[:id])
+    redirect_if_not_logged_in
+    @user = current_user
     @bikes = @user.bikes
     @spots = @user.spots
     erb :"/users/show"
   end
 
   delete "/users/:id" do
-    user = User.find_by(id: params[:id])
+    redirect_if_not_logged_in
+    user = current_user
     user.bikes.clear
     user.spots.clear
     user.delete
