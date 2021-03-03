@@ -2,7 +2,8 @@ require './config/environment'
 
 
 
-run ApplicationController
+use Rack::MethodOverride
 use SpotsController
 use BikesController
 use UsersController
+run ApplicationController

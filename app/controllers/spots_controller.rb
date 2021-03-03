@@ -2,7 +2,8 @@ class SpotsController < ApplicationController
 
   # GET: /spots
   get "/spots" do
-    erb :"/spots/index.html"
+    @spots = Spot.all
+    erb :"/spots/index"
   end
 
   # GET: /spots/new
@@ -10,28 +11,35 @@ class SpotsController < ApplicationController
     erb :"/spots/new.html"
   end
 
-  # POST: /spots
   post "/spots" do
     redirect "/spots"
   end
 
   # GET: /spots/5
   get "/spots/:id" do
-    erb :"/spots/show.html"
+    @spot = Spot.find_by(id: params[:id])
+    erb :"/spots/show"
   end
 
   # GET: /spots/5/edit
   get "/spots/:id/edit" do
-    erb :"/spots/edit.html"
+    @users = User.all
+    @spot = Spot.find_by(id: params[:id])
+    erb :"/spots/edit"
   end
 
   # PATCH: /spots/5
   patch "/spots/:id" do
-    redirect "/spots/:id"
+    spot = Spot.find_by(id: params[:id])
+    user = User.find_by(id: params[:user])
+    spot.user = user
+    user.spots << spot
+    redirect "/spots/#{spot.id}"
   end
 
-  # DELETE: /spots/5/delete
-  delete "/spots/:id/delete" do
-    redirect "/spots"
-  end
+  # # DELETE: /spots/5/delete
+  # delete "/spots/:id/delete" do
+  #   redirect "/spots"
+  # end
+
 end

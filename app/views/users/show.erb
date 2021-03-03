@@ -12,4 +12,11 @@
 </ol>
 <h3>Current spot(s):</h3>
 
+<ul>
+<% @user.spots.each do |spot|%>
+    <li><%=spot.id%> - <%=spot.level?%></li>
+    <br>
+    <% end %>
+</ul>
+
 <h4><a href="/bikes/new">Add Bike</a></h4>

@@ -15,12 +15,12 @@ class UsersController < ApplicationController
   post '/signup' do
     user = User.create(params[:user])
     session[:user_id] = user.id
-    redirect "/users/#{u.id}"
+    redirect "/users/#{user.id}"
   end
 
   get '/logout' do
     session.clear
-    redirect '/login'
+    redirect '/'
   end
 
   get '/login' do
@@ -36,14 +36,10 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect "/users/#{user.id}"
     else
-      # flash[:message] = "Please try again."
+      flash[:message] = "Please try again."
       erb :'users/login'
     end
   end
-
-#WONT WORK?   <% if flash.has?(:message) %>
-#   <%= flash[:message] %>
-# <% end %> 
 
   get "/users/:id" do
     @user = User.find_by(id: params[:id])

@@ -1,25 +1,23 @@
 class BikesController < ApplicationController
 
-  # GET: /bikes
   get "/bikes" do
     @bikes = Bike.all
     erb :"/bikes/index"
   end
 
-  # GET: /bikes/new
   get "/bikes/new" do
     erb :"/bikes/new"
   end
 
-  # POST: /bikes
   post "/bikes" do
     @user = User.find_by(id: session[:user_id])
     new_bike = Bike.create(model: params[:bike][:model], description: params[:bike][:description], user_id: @user.id)
     redirect "/users/#{@user.id}"
   end
 
-  # GET: /bikes/5 THIS IS NOT DONE
   get "/bikes/:id" do
+    @bike = Bike.find_by(id: params[:id])
+    @user = @bike.user
     erb :"/bikes/show"
   end
 

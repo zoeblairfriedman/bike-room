@@ -1,0 +1,11 @@
+<h1>All spots:</h1>
+
+<ol>
+<% @spots.each do |spot| %>
+    <li><% if !spot.user_id %>
+        Spot Available - <%=spot.level?%>
+                <% else %>
+        Spot Taken
+        <% end %></li>
+    <% end %>
+    </ol>

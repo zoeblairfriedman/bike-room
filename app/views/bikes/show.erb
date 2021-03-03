@@ -1,1 +1,10 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h1>Bike details</h1>
+
+<h3>Belongs to: <%= @bike.user.name %> from <%= @bike.user.apartment %> </h3>
+<h3>Model: <%= @bike.model %></h3>
+<h3>Description: <%= @bike.description%></h3>
+<h4>Possible Spot(s): <ul><% @user.spots.each do |spot|%>
+    <li><%= spot.id %></li>
+    <% end %></h4></ul>
+    <a href="/bikes/<%=@bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a>
+    <a href="/bikes/:id/delete" class="btn btn-primary btn-sm">Delete Bike</a>
