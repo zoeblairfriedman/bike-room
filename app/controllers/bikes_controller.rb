@@ -11,7 +11,7 @@ class BikesController < ApplicationController
 
   post "/bikes" do
     @user = User.find_by(id: session[:user_id])
-    new_bike = Bike.create(model: params[:bike][:model], description: params[:bike][:description], user_id: @user.id)
+    @user.bikes.create(params[:bike])
     redirect "/users/#{@user.id}"
   end
 

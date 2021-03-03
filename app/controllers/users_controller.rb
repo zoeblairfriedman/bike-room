@@ -14,8 +14,13 @@ class UsersController < ApplicationController
 
   post '/signup' do
     user = User.create(params[:user])
-    session[:user_id] = user.id
-    redirect "/users/#{user.id}"
+    if user.id
+      session[:user_id] = user.id
+      redirect "/users/#{user.id}"
+    else
+      flash[:message] = user.errors.full_messages.first
+      erb :'users/signup'
+    end
   end
 
   get '/logout' do
@@ -43,6 +48,8 @@ class UsersController < ApplicationController
 
   get "/users/:id" do
     @user = User.find_by(id: params[:id])
+    @bikes = @user.bikes
+    @spots = @user.spots
     erb :"/users/show"
   end
 

@@ -1,10 +1,10 @@
 
-<h2><%=@user.name%> from <%=@user.apartment%></h2>
+<h2><%=@user.name%> from <%=@user.apartment%> </h2>
+<a href="/logout">Log Out</a>
 <br>
-
 <h3>Registered bike(s):</h3>
 <ol>
-<% @user.bikes.each do |bike|%>
+<% @bikes.each do |bike|%>
     <li><%= bike.model%> - <%=bike.description %>
     <a href="/bikes/<%=bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a></li>
     <br>
@@ -13,7 +13,7 @@
 <h3>Current spot(s):</h3>
 
 <ul>
-<% @user.spots.each do |spot|%>
+<% @spots.each do |spot|%>
     <li><%=spot.id%> - <%=spot.level?%></li>
     <br>
     <% end %>
@@ -26,4 +26,4 @@
    <input type="submit"  class="btn btn-primary btn-sm" value="Delete account and all bikes">
 </form>
 
-<img src=”/images/bike-rack.jpg” alt="bike room">
+<img src="images/labled_bike_rack_small.jpg" alt="bike room">

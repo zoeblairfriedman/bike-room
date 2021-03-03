@@ -13,7 +13,11 @@ configure do
 
   
   get "/" do
-    erb :welcome
+    if session[:user_id]
+      redirect "/users/#{session[:user_id]}"
+    else
+      erb :welcome, :layout => :login_layout
+    end
   end
 
 
