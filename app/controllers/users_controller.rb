@@ -46,6 +46,14 @@ class UsersController < ApplicationController
     erb :"/users/show"
   end
 
-
+  delete "/users/:id" do
+    user = User.find_by(id: params[:id])
+    user.bikes.clear
+    user.spots.clear
+    user.delete
+    #why am I getting an error here?
+    redirect "/signup"
+  end
+  
 
 end

@@ -1,1 +1,8 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<h1>Edit your bike.</h1>
+
+<form  action="/bikes/<%=@bike.id %>" method="post">
+<input type="hidden" name="_method" value="patch">
+  <p>Model: <input type="text" name="bike[model]"></p>
+  <p>Description: <input type="text" name="bike[description]"></p>
+  <input type="submit" value="Update Bike">
+</form>

@@ -3,9 +3,9 @@
 <ol>
 <% @spots.each do |spot| %>
     <li><% if !spot.user_id %>
-        Spot Available - <%=spot.level?%>
+        Spot Available - <%=spot.level?%> - <a href="/spots/<%=spot.id%>/edit">Assign Spot</a>
                 <% else %>
-        Spot Taken
+        Spot Taken 
         <% end %></li>
     <% end %>
     </ol>

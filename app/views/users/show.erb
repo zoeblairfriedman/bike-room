@@ -19,4 +19,11 @@
     <% end %>
 </ul>
 
-<h4><a href="/bikes/new">Add Bike</a></h4>
+<h4><a href="/bikes/new" class="btn btn-primary btn-sm">Add Bike</a></h4>
+
+<form action="/users/<%=@user.id%>" method="post">
+   <input type="hidden" name="_method" value="delete">
+   <input type="submit"  class="btn btn-primary btn-sm" value="Delete account and all bikes">
+</form>
+
+<img src=”/images/bike-rack.jpg” alt="bike room">

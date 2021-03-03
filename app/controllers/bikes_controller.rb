@@ -21,18 +21,21 @@ class BikesController < ApplicationController
     erb :"/bikes/show"
   end
 
-  # GET: /bikes/5/edit THIS IS NOT DONE
   get "/bikes/:id/edit" do
+    @bike = Bike.find_by(id: params[:id])
     erb :"/bikes/edit"
   end
 
-  # PATCH: /bikes/5 THIS IS NOT DONE
   patch "/bikes/:id" do
-    redirect "/bikes/:id"
+    bike = Bike.find_by(id: params[:id])
+    bike.update(params[:bike])
+    redirect "/bikes/#{bike.id}"
   end
 
-  # DELETE: /bikes/5/delete THIS IS NOT DONE
-  delete "/bikes/:id/delete" do
-    redirect "/bikes"
+  delete "/bikes/:id" do
+    bike = Bike.find_by(id: params[:id])
+    bike.delete
+    redirect "/users/#{bike.user.id}"
   end
+  
 end
