@@ -35,9 +35,15 @@ class SpotsController < ApplicationController
     redirect "/users/#{user.id}"
   end
 
-  # # DELETE: /spots/5/delete
-  # delete "/spots/:id/delete" do
-  #   redirect "/spots"
-  # end
+  patch "/spots/:id/unassign" do
+    spot = Spot.find_by(id: params[:id])
+    spot.user = nil
+    redirect "/spots"
+  end
+
+  # DELETE: /spots/5/delete
+  delete "/spots/:id/delete" do
+    redirect "/spots"
+  end
 
 end

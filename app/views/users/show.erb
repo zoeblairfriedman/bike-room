@@ -6,8 +6,10 @@
 <ol>
 <% @bikes.each do |bike|%>
     <li><%= bike.model%> - <%=bike.description %>
-    <a href="/bikes/<%=bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a></li>
-    <br>
+    <% if current_user == @user || is_admin? %>
+        <a href="/bikes/<%=bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a></li>
+        <% end %>
+        <br>
     <% end %>
 </ol>
 <h3>Current spot(s):</h3>
@@ -19,11 +21,14 @@
     <% end %>
 </ul>
 
-<h4><a href="/bikes/new" class="btn btn-primary btn-sm">Add Bike</a></h4>
 
-<form action="/users/<%=@user.id%>" method="post">
-   <input type="hidden" name="_method" value="delete">
-   <input type="submit"  class="btn btn-primary btn-sm" value="Delete account and all bikes">
-</form>
+<% if current_user == @user || is_admin? %>
+    <h4><a href="/bikes/new" class="btn btn-primary btn-sm">Add Bike</a></h4>
+
+    <form action="/users/<%=@user.id%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit"  class="btn btn-primary btn-sm" value="Delete account and all bikes">
+    </form>
+<% end %>
 
 <img src="/images/labled_bike_rack.jpg" alt="bike room">

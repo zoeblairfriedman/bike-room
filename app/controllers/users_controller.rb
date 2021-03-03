@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
   get "/users/:id" do
     redirect_if_not_logged_in
-    @user = current_user
+    @user = User.find_by(id: params[:id])
     @bikes = @user.bikes
     @spots = @user.spots
     erb :"/users/show"

@@ -9,12 +9,14 @@
     <li><%= spot.id %></li>
     <% end %></h4></ul>
 
-<br>
-    <a href="/bikes/<%=@bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a>
-<br>
-<br>
+<% if current_user == @bike.user || is_admin? %>
+    <br>
+        <a href="/bikes/<%=@bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a>
+    <br>
+    <br>
 
-<form action="/bikes/<%=@bike.id%>" method="post">
-   <input type="hidden" name="_method" value="delete">
-   <input type="submit"  class="btn btn-primary btn-sm" value="Delete Bike">
-</form>
+    <form action="/bikes/<%=@bike.id%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit"  class="btn btn-primary btn-sm" value="Delete Bike">
+    </form>
+<% end %>

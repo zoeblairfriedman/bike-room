@@ -20,11 +20,11 @@ class BikesController < ApplicationController
   get "/bikes/:id" do
     redirect_if_not_logged_in
     @bike = Bike.find_by(id: params[:id])
-    if can_alter
+    if @bike
       @user = @bike.user
       erb :"/bikes/show"
     else
-      redirect_to_user_home
+      redirect '/bikes'
     end
   end
 
