@@ -35,10 +35,9 @@ class SpotsController < ApplicationController
     redirect "/users/#{user.id}"
   end
 
-  #why isn't this working?
   patch "/spots/:id/unassign" do
     spot = Spot.find_by(id: params[:id])
-    spot.user = nil
+    spot.update(user: nil)
     @spots = Spot.all
     redirect '/spots'
   end
