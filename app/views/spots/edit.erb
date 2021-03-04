@@ -1,20 +1,22 @@
-<h1>Spot #<%=@spot.id%></h1>
+<h2>Spot #<%=@spot.id%></h2>
 
 <% if is_admin? && !@spot.user_id %>
-   <h2>Spot Available!</h2>
-   <h3>Add Owner?</h3>
+   <h3>Spot Available!</h3>
+   <h4>Add Owner?</h4>
    <form action="/spots/<%=@spot.id%>" method="POST">
    <input id="hidden" type="hidden" name="_method" value="PATCH">
       <% @users.each do |user| %>
-      <p><label for="user"><%=user.name%></label> <input id="<%= user.name %>" type="radio" name="user" value="<%= user.id %>"></p>
-      <% end %>                                                         
+         <% if user.name != "admin" %>
+           <p><label for="user"><%=user.name%></label> <input id="<%= user.name %>" type="radio" name="user" value="<%= user.id %>"></p>
+            <% end %>
+         <% end %>                                                         
       <br>  
       <input type="submit" value="Update Spot">
    </form>
 
 <% elsif is_admin? && @spot.user_id%>
 
-<h2> This spot is currently owned by <%=@spot.user.name%> from <%=@spot.user.apartment%>. </h3>
+<h3> This spot is currently owned by <%=@spot.user.name%> from <%=@spot.user.apartment%>. </h3>
 <p><a href="/users/<%=@spot.user.id%>" class="btn btn-primary btn-sm">See owner information</a></p>
 
 <form action="/spots/<%=@spot.id%>/unassign" method="post">
