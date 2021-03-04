@@ -39,8 +39,14 @@ configure do
       end
 
       def redirect_to_user_home
+        flash[:message] = "You are not authorized to alter other user's bike information"
         redirect "/users/#{current_user.id}"
       end
+
+      def can_alter
+        check_owner(@bike) || (@bike && is_admin?)
+      end
+      
 
   end
 

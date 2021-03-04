@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     user = User.create(params[:user])
     if user.id
       session[:user_id] = user.id
+      flash[:message] = "Sign up successful!"
       redirect "/users/#{user.id}"
     else
       flash[:message] = user.errors.full_messages.first
@@ -42,8 +43,8 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect "/users/#{user.id}"
     else
-      flash[:message] = "Please try again."
-      erb :'users/login'
+      flash[:message] = "Incorrect username or password"
+      redirect 'users/login'
     end
   end
 
@@ -57,12 +58,18 @@ class UsersController < ApplicationController
 
   delete "/users/:id" do
     redirect_if_not_logged_in
-    user = current_user
-    user.bikes.clear
-    user.spots.clear
-    user.delete
+    user = User.find_by(id: params[:id])
+    if (current_user == user || is_admin?) && user
+      user.bikes.clear
+      user.spots.clear
+      user.delete
+    end
     #why am I getting an error here?
-    redirect "/signup"
+    if is_admin?
+      redirect '/users' 
+    else 
+      redirect "/signup"
+    end
   end
   
 

@@ -41,9 +41,5 @@ class SpotsController < ApplicationController
     redirect "/spots"
   end
 
-  # DELETE: /spots/5/delete
-  delete "/spots/:id/delete" do
-    redirect "/spots"
-  end
 
 end

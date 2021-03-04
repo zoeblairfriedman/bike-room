@@ -60,8 +60,4 @@ class BikesController < ApplicationController
     end
   end
 
-  def can_alter
-    check_owner(@bike) || (@bike && is_admin?)
-  end
-  
 end
