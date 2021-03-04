@@ -6,7 +6,7 @@
    <form action="/spots/<%=@spot.id%>" method="POST">
    <input id="hidden" type="hidden" name="_method" value="PATCH">
       <% @users.each do |user| %>
-      <p><label for="user"><%=user.name%></label> <input id="<%= user.name %>" type="checkbox" name="user" value="<%= user.id %>"></p>
+      <p><label for="user"><%=user.name%></label> <input id="<%= user.name %>" type="radio" name="user" value="<%= user.id %>"></p>
       <% end %>                                                         
       <br>  
       <input type="submit" value="Update Spot">

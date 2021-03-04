@@ -2,8 +2,11 @@
 <ol>
 <% @spots.each do |spot| %>
     <li><% if !spot.user_id %>
-        Spot Available - <%=spot.level?%> - <a href="/spots/<%=spot.id%>/edit">Assign Spot</a>
-                <% else %>
+        Spot Available - <%=spot.level?%> 
+                    <% if is_admin? %>
+                        - <a href="/spots/<%=spot.id%>/edit">Assign Spot</a>
+                    <% end %>
+            <% else %>
         Spot Taken 
         <% end %></li>
     <% end %>

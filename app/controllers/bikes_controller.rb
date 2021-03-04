@@ -13,9 +13,16 @@ class BikesController < ApplicationController
 
   post "/bikes" do
     @user = current_user
-    @user.bikes.create(params[:bike])
-    redirect_to_user_home
+    new_bike = Bike.create(params[:bike])
+    if new_bike.id
+      @user.bikes << new_bike
+      redirect_to_user_home
+    else
+      flash[:message] = new_bike.errors.full_messages.first
+      erb :'bikes/new'
+    end
   end
+
 
   get "/bikes/:id" do
     redirect_if_not_logged_in
