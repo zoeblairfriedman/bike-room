@@ -31,7 +31,7 @@ configure do
       end
 
       def is_admin?
-        current_user.name == "admin"
+        current_user && current_user.name == "admin"
       end
 
       def check_owner(obj)

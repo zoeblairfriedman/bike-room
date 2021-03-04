@@ -63,12 +63,12 @@ class UsersController < ApplicationController
       user.bikes.clear
       user.spots.clear
       user.delete
+      session.clear
     end
-    #why am I getting an error here?
     if is_admin?
       redirect '/users' 
     else 
-      redirect "/signup"
+      redirect "/"
     end
   end
   
