@@ -1,7 +1,6 @@
 To Do List
 
-
-4. Add nav bar (using helper methods)
+4. Trouble shoot "unassign" path
 5. accoutn for longer descriptions
+5a. Make Admin not an option for spot asisgnment
 6. Allow for addition and deletion of spots
-7. Add a boolean to the User class for admins

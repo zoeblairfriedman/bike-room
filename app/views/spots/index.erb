@@ -1,4 +1,4 @@
-<h1>All spots:</h1>
+<h2>All spots:</h2>
 <ol>
 <% @spots.each do |spot| %>
     <li><% if !spot.user_id %>
@@ -8,6 +8,10 @@
                     <% end %>
             <% else %>
         Spot Taken 
+        <% if is_admin? %>
+        - <a href="/users/<%=spot.user.id%>">See Spot Owner</a>
+        - <a href="/spots/<%=spot.id%>/edit">Edit Spot</a>
+    <% end %>
         <% end %></li>
     <% end %>
     </ol>
