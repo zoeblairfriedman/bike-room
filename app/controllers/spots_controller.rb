@@ -32,7 +32,7 @@ class SpotsController < ApplicationController
     user = User.find_by(id: params[:user])
     spot.user = user
     user.spots << spot
-    redirect "/users/#{user.id}"
+    redirect "/spots"
   end
 
   patch "/spots/:id/unassign" do

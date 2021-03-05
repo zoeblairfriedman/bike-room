@@ -10,7 +10,7 @@
             <% else %>
         Spot Taken 
         <% if is_admin? %>
-        - <a href="/users/<%=spot.user.id%>">See Spot Owner</a>
+        - <a href="/users/<%=spot.user.id%>"><%=spot.user.name%></a>
         - <a href="/spots/<%=spot.id%>/edit">Edit Spot</a>
     <% end %>
         <% end %></li>
