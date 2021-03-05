@@ -1,4 +1,5 @@
 <h2>All spots:</h2>
+
 <ol>
 <% @spots.each do |spot| %>
     <li><% if !spot.user_id %>
@@ -15,5 +16,9 @@
         <% end %></li>
     <% end %>
     </ol>
+
+<% if !is_admin? %>
+<p>**Please contact building manager to secure or change spot**</p>
+<% end %>
 
     <img src="images/labled_bike_rack.jpg" alt="bike room">

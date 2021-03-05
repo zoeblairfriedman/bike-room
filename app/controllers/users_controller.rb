@@ -50,10 +50,14 @@ class UsersController < ApplicationController
 
   get "/users/:id" do
     redirect_if_not_logged_in
-    @user = User.find_by(id: params[:id])
-    @bikes = @user.bikes
-    @spots = @user.spots
-    erb :"/users/show"
+    if User.find_by(id: params[:id])
+      @user = User.find_by(id: params[:id])
+      @bikes = @user.bikes
+      @spots = @user.spots
+      erb :"/users/show"
+    else
+      redirect_to_user_home
+    end
   end
 
   delete "/users/:id" do

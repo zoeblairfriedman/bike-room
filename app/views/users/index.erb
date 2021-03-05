@@ -2,6 +2,8 @@
 
 <ul>
 <% @users.each do |user| %>
-    <li><a href="/users/<%=user.id%>"><%= user.name %></a> (<%=user.apartment%>)</li>
+    <% if user.name != "admin" %>
+        <li><a href="/users/<%=user.id%>"><%= user.name %></a> (<%=user.apartment%>)</li> 
+        <% end %>
     <% end %>
     </ul>

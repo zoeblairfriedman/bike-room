@@ -1,36 +1,46 @@
 
 <%= flash[:message] %> 
 
-
-<h2><%=@user.name%> from <%=@user.apartment%> </h2>
-<br>
-<h3>Registered bike(s):</h3>
-<ol>
-<% @bikes.each do |bike|%>
-    <li><%= bike.model%> - <%=bike.description %>
-    <% if current_user == @user || is_admin? %>
-        <a href="/bikes/<%=bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a></li>
-        <% end %>
-        <br>
-    <% end %>
-</ol>
-<h3>Current spot(s):</h3>
-
-<ul>
-<% @spots.each do |spot|%>
-    <li><%=spot.id%> - <%=spot.level?%></li>
+<%if !is_admin?%>
+    <h2><%=@user.name%> from <%=@user.apartment%> </h2>
     <br>
+    <% if @user.bikes.size != 0 %>
+        <h3>Registered bike(s):</h3>
+        <ol>
+        <% @bikes.each do |bike|%>
+            <li><%= bike.model%> - <%=bike.description %>
+            <% if current_user == @user || is_admin? %>
+                <a href="/bikes/<%=bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a></li>
+                <% end %>
+                <br>
+            <% end %>
+        </ol>
+    <% else %>
+        <h3>No current bikes</h3>    
     <% end %>
-</ul>
+    <% if @user.spots.size != 0 %>
+        <h3>Current spot(s):</h3>
 
+        <ul>
+        <% @spots.each do |spot|%>
+            <li><%=spot.id%> - <%=spot.level?%></li>
+            <br>
+            <% end %>
+        </ul>
+    <% else %>
+        <h3>No current spots</h3>        
+    <% end %>
 
-<% if current_user == @user || is_admin? %>
-    <h4><a href="/bikes/new" class="btn btn-primary btn-sm">Add Bike</a></h4>
+    <br>
 
-    <form action="/users/<%=@user.id%>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <input type="submit"  class="btn btn-primary btn-sm" value="Delete account and all bikes">
-    </form>
+    <% if current_user == @user && !is_admin?%>
+        <h4><a href="/bikes/new" class="btn btn-primary btn-sm">Add Bike</a></h4>
+
+        <form action="/users/<%=@user.id%>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit"  class="btn btn-primary btn-sm" value="Delete account and all bikes">
+        </form>
+    <% end %>
 <% end %>
 
 <img src="/images/labled_bike_rack.jpg" alt="bike room">
