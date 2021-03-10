@@ -18,17 +18,16 @@ class UsersController < ApplicationController
     if @user.id
       session[:user_id] = @user.id
       flash[:message] = "Sign up successful!"
-      erb :'users/show'
+      redirect "users/#{@user.id}"
     else
       flash[:message] = @user.errors.full_messages.first
-      erb :'users/signup'
+      redirect '/signup'
     end
   end
 
-  #should this be erb? yes
   get '/logout' do
     session.clear
-    redirect '/'
+    erb :'users/login'
   end
 
   get '/login' do
@@ -46,7 +45,7 @@ class UsersController < ApplicationController
       redirect "/users/#{user.id}"
     else
       flash[:message] = "Incorrect username or password"
-      erb :'users/login'
+      redirect "/login"
     end
   end
 
@@ -58,7 +57,7 @@ class UsersController < ApplicationController
       @spots = @user.spots
       erb :"/users/show"
     else
-      redirect_to_user_home
+      redirect "/users/#{current_user.id}"
     end
   end
 

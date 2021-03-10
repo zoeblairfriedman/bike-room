@@ -16,7 +16,7 @@ class BikesController < ApplicationController
     new_bike = Bike.create(params[:bike])
     if new_bike.id
       @user.bikes << new_bike
-      redirect_to_user_home
+      redirect "/bikes/#{new_bike.id}"
     else
       flash[:message] = new_bike.errors.full_messages.first
       redirect '/bikes/new'

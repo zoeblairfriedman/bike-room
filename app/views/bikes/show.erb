@@ -2,9 +2,9 @@
 
 
 
-<h3>Belongs to: <%= @bike.user.name %> from <%= @bike.user.apartment %> </h3>
-<h3>Model: <%= @bike.model %></h3>
-<h3>Description: <%= @bike.description%></h3>
+<h4>Belongs to: <%= @bike.user.name %> from <%= @bike.user.apartment %> </h4>
+<h4>Model: <%= @bike.model %></h4>
+<h4>Description: <%= @bike.description%></h4>
 <% if @user.spots.size != 0 %>
     <h4>Possible Spot(s): <ul><% @user.spots.each do |spot|%>
         <li><%= spot.id %></li>
