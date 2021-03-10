@@ -1,8 +1,20 @@
 <h1>Edit bike.</h1>
 
+<% if current_user == @bike.user || is_admin?%>
+
 <form  action="/bikes/<%=@bike.id %>" method="post">
 <input type="hidden" name="_method" value="patch">
   <p>Model: <input type="text" name="bike[model]" value="<%=@bike.model%>"></p>
   <p>Description: <input type="text" name="bike[description]" value="<%=@bike.description%>"></p>
-  <input type="submit" value="Update Bike">
+  <input type="submit" class="btn btn-primary btn-sm" value="Update Bike">
 </form>
+
+
+<form action="/bikes/<%=@bike.id %>" method="post">
+<input type="hidden" name="_method" value="delete">
+<input type="submit"  class="btn btn-primary btn-sm" value="Delete bike">
+</form>
+
+<% else %>
+  <h2> You do not have permission to edit this bike </h2>
+<% end %>

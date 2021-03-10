@@ -1,7 +1,6 @@
 
-<%= flash[:message] %> 
+<p class="flash-success"><%= flash[:message] %></p> 
 
-<%if !is_admin?%>
     <h2><%=@user.name%> from <%=@user.apartment%> </h2>
     <br>
     <% if @user.bikes.size != 0 %>
@@ -10,7 +9,7 @@
         <% @bikes.each do |bike|%>
             <li><%= bike.model%> - <%=bike.description %>
             <% if current_user == @user || is_admin? %>
-                <a href="/bikes/<%=bike.id%>/edit" class="btn btn-primary btn-sm">Edit Bike</a></li>
+                <a href="/bikes/<%=bike.id%>/edit" class="btn btn-primary btn-sm">Edit or Delete Bike</a></li>
                 <% end %>
                 <br>
             <% end %>
@@ -33,7 +32,7 @@
 
     <br>
 
-    <% if current_user == @user && !is_admin?%>
+    <% if current_user == @user || is_admin?%>
         <h4><a href="/bikes/new" class="btn btn-primary btn-sm">Add Bike</a></h4>
 
         <form action="/users/<%=@user.id%>" method="post">
@@ -41,6 +40,5 @@
         <input type="submit"  class="btn btn-primary btn-sm" value="Delete account and all bikes">
         </form>
     <% end %>
-<% end %>
 
 <img src="/images/labled_bike_rack.jpg" alt="bike room">

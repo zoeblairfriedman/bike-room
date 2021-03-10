@@ -14,17 +14,18 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    user = User.create(params[:user])
-    if user.id
-      session[:user_id] = user.id
+    @user = User.create(params[:user])
+    if @user.id
+      session[:user_id] = @user.id
       flash[:message] = "Sign up successful!"
-      redirect "/users/#{user.id}"
+      erb :'users/show'
     else
-      flash[:message] = user.errors.full_messages.first
+      flash[:message] = @user.errors.full_messages.first
       erb :'users/signup'
     end
   end
 
+  #should this be erb? yes
   get '/logout' do
     session.clear
     redirect '/'
@@ -37,6 +38,7 @@ class UsersController < ApplicationController
     erb :'users/login'
   end
 
+  #should this be a redirect? I feel like flash messages don't work with redirects.
   post '/login' do
     user = User.find_by(name: params[:user][:name])
     if user && user.authenticate(params[:user][:password])
@@ -44,7 +46,7 @@ class UsersController < ApplicationController
       redirect "/users/#{user.id}"
     else
       flash[:message] = "Incorrect username or password"
-      redirect 'users/login'
+      erb :'users/login'
     end
   end
 
@@ -64,10 +66,12 @@ class UsersController < ApplicationController
     redirect_if_not_logged_in
     user = User.find_by(id: params[:id])
     if (current_user == user || is_admin?) && user
-      user.bikes.clear
+      user.bikes.each do |bike|
+        bike.delete
+      end
       user.spots.clear
       user.delete
-      session.clear
+      session.clear unless is_admin?
     end
     if is_admin?
       redirect '/users' 

@@ -2,7 +2,8 @@ require './config/environment'
 require 'rack-flash'
 
 class ApplicationController < Sinatra::Base
-use Rack::Flash
+# use Rack::Flash
+register Sinatra::Flash
 
 configure do
     set(:views, 'app/views')
@@ -38,6 +39,7 @@ configure do
         obj && obj.user == current_user
       end
 
+      #i keep breaking my app trying to get this to work as an erb
       def redirect_to_user_home
         flash[:message] = "You are not authorized to alter other user's bike information"
         redirect "/users/#{current_user.id}"

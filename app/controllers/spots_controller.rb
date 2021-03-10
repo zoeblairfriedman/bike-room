@@ -7,6 +7,7 @@ class SpotsController < ApplicationController
   end
 
   get "/spots/new" do
+    redirect_if_not_logged_in
     erb :"/spots/new.html"
   end
 

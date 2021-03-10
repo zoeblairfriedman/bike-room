@@ -19,7 +19,7 @@ class BikesController < ApplicationController
       redirect_to_user_home
     else
       flash[:message] = new_bike.errors.full_messages.first
-      erb :'bikes/new'
+      redirect '/bikes/new'
     end
   end
 

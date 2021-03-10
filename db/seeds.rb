@@ -4,4 +4,3 @@
 a = Spot.new
 a.save
 end
-
